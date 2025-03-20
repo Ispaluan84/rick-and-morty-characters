@@ -7,9 +7,17 @@ const character = 'https://rickandmortyapi.com/api/character/?page=1';
 
 fetch('https://rickandmortyapi.com/api/character/?page=1')
     .then (response => response.json())
-    .then ((data) => {
-        characterList.innerText = data.results;
+
+    .then ((data) => { 
+        data.results.forEach(personaje => {
+        characterList.innerHTML += `<li><img src="${personaje.image}" alt=${personaje.name}/><h2>${personaje.name}</h2><p>Specie:${personaje.species}</div></li>`
+        })
     })
     .catch((error) => {
         characterList.innerText = 'No se pudo recuperar la imagen';
     })
+
+
+
+    
+   
