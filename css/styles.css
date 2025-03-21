@@ -71,23 +71,28 @@ table {
   cursor: pointer;
   background-color: #03b1c8;
 }
-
-ul {  
+ul{
   padding-top: 100px;
-  margin: 0 15px;
   list-style: none;
+}
+strong {
+  font-weight: bold;
+}
+
+#character-list {  
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 20px;
+  justify-content: center;
+}
+img{
+  width: 180px;
 }
 
-img {
-  width: 200px;;
-}
-
-li {
-  margin:15px;
-
+.card {
+  padding: 10px;
+  border: 2px solid lightgrey;
+  border-radius: 5px;
 }
 
 

@@ -1,23 +1,49 @@
-document.addEventListener('DOMContentLoaded', rickandmorty);
+
 const characterList = document.getElementById('character-list');
 
-function rickandmorty() {
-const character = 'https://rickandmortyapi.com/api/character/?page=1';
-}
 
-fetch('https://rickandmortyapi.com/api/character/?page=1')
-    .then (response => response.json())
+const nextPage = document.getElementById('next-page');
+const prevPage = document.getElementById('prev-page');
+
+let currentPage = 1;
+
+function getCharacters () {
+fetch(`https://rickandmortyapi.com/api/character/?page=${currentPage}`)
+    .then (response => {
+        if(!response.ok) {
+            throw new Error(`Error: ${response.status}`)
+        }
+        return response.json()
+    })
 
     .then ((data) => { 
+        characterList.innerHTML = ""
         data.results.forEach(personaje => {
-        characterList.innerHTML += `<li><img src="${personaje.image}" alt=${personaje.name}/><h2>${personaje.name}</h2><p>Specie:${personaje.species}</div></li>`
+        characterList.innerHTML += `
+        <li>
+          <div class = 'card'>
+            <img src="${personaje.image}" alt=${personaje.name}/>
+            <h2><strong>Name:</strong>${personaje.name}</h2>
+            <p><strong>Specie:</strong>${personaje.species}<p>
+          </div>
+        </li>`
         })
-    })
-    .catch((error) => {
-        characterList.innerText = 'No se pudo recuperar la imagen';
-    })
+}).catch(error => console.error(error.message))
+
+}
+getCharacters()
 
 
+nextPage.addEventListener("click", () => {
+    if(currentPage < 42) {
+        currentPage++
+        getCharacters()
+    }
+})
 
-    
-   
+prevPage.addEventListener("click", () => {
+    if(currentPage !== 1) {
+        currentPage--
+        getCharacters()
+    }
+})
